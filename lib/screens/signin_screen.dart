@@ -1,18 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_app/constants.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+  static String id = "sign_screen";
 
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late String email;
   late String password;
+
+  User? user;
   bool secureText = false;
   @override
   void initState() {
