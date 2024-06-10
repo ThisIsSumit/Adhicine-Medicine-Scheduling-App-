@@ -1,4 +1,4 @@
-buildscript {
+buildscript{
  
     repositories {
       // Make sure that you have the following two repositories
@@ -6,12 +6,7 @@ buildscript {
       mavenCentral()  // Maven Central repository
     }
 
-    dependencies {
-      
-
-      // Add the Maven coordinates and latest version of the plugin
-    
-    // ... other dependencies
+    dependencies{
 
     classpath 'com.android.tools.build:gradle:7.4.2'
     classpath 'com.google.gms:google-services:4.4.2'
