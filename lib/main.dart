@@ -6,7 +6,7 @@ import 'package:medicine_app/screens/home_screen.dart';
 import 'package:medicine_app/screens/profile_screen.dart';
 import 'package:medicine_app/screens/report_screen.dart';
 import 'package:medicine_app/screens/signin_screen.dart';
-import 'package:medicine_app/widgets/sign_up.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +36,6 @@ class MedicineApp extends StatelessWidget {
         ProfileScreen.id: (context) => const ProfileScreen(),
         ReportScreen.id: (context) => const ReportScreen(),
         ForgetPassword.id: (context) => const ForgetPassword(),
-        SignUpPopUp.id: (contex) => const SignUpPopUp(),
       },
     );
   }

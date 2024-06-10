@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:medicine_app/constants.dart';
 import 'package:medicine_app/models/signIn_brain.dart';
 import 'package:medicine_app/screens/home_screen.dart';
@@ -21,12 +22,28 @@ class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late String email;
   late String password;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   User? googleUser;
   bool secureText = false;
   @override
   void initState() {
     super.initState();
+    _auth.authStateChanges().listen((event) {
+      setState(() {
+        googleUser = event;
+      });
+    });
+  }
+
+  void handleGoogleSignin() {
+    try {
+      final GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
+      _auth.signInWithProvider(_googleAuthProvider);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -67,6 +84,7 @@ class _SignInPageState extends State<SignInPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          controller: _emailController,
                           onChanged: (value) {
                             email = value;
                           },
@@ -82,6 +100,7 @@ class _SignInPageState extends State<SignInPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
                         child: TextFormField(
+                          controller: _passwordController,
                           onChanged: (value) {
                             password = value;
                           },
@@ -113,10 +132,17 @@ class _SignInPageState extends State<SignInPage> {
                     style: kElevatedButtonStyle,
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        final user = await _auth.signInWithEmailAndPassword(
-                            email: email, password: password);
-                        if (user != null) {
-                          Navigator.popAndPushNamed(context, HomeScreen.id);
+                        if (await _signinBrain.checkNetworkConnectivity()) {
+                          final user = await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
+                          if (user != null) {
+                            setState(() {
+                              _emailController.clear();
+                              _passwordController.clear();
+                            });
+
+                            Navigator.pushNamed(context, HomeScreen.id);
+                          }
                         }
                       }
                     },
@@ -163,7 +189,7 @@ class _SignInPageState extends State<SignInPage> {
                           side: BorderSide(),
                         ),
                         Buttons.google,
-                        onPressed: () {},
+                        onPressed: () => handleGoogleSignin(),
                         text: "Continue with Google",
                       ),
                     ),
@@ -183,13 +209,7 @@ class _SignInPageState extends State<SignInPage> {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return const SizedBox(
-                                  child: AlertDialog(
-                                    title: Center(child: Text("sign up")),
-                                    content:
-                                        SizedBox(child: Text("signup page")),
-                                  ),
-                                );
+                                return const SignUpPopUp();
                               });
                         },
                         child: const Text("Sign Up"))
