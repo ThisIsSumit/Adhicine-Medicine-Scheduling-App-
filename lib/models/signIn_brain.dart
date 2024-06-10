@@ -25,7 +25,7 @@ class SigninBrain {
     return null;
   }
 
- Future<bool> checkNetworkConnectivity() async {
+  Future<bool> checkNetworkConnectivity() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     // ignore: unrelated_type_equality_checks
     if (connectivityResult == ConnectivityResult.none) {
@@ -33,5 +33,4 @@ class SigninBrain {
     }
     return true;
   }
-
 }
