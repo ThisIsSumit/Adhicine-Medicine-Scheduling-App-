@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_app/constants.dart';
+import 'package:medicine_app/models/signIn_brain.dart';
+import 'package:medicine_app/screens/home_screen.dart';
+import 'package:medicine_app/widgets/sign_up.dart';
 import 'package:sign_in_button/sign_in_button.dart';
+
+SigninBrain _signinBrain = SigninBrain();
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -13,12 +17,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late String email;
   late String password;
 
-  User? user;
+  User? googleUser;
   bool secureText = false;
   @override
   void initState() {
@@ -71,12 +75,8 @@ class _SignInPageState extends State<SignInPage> {
                             hintText: "Email",
                             icon: const Icon(Icons.alternate_email_outlined),
                           ),
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
+                          validator: (String? value) =>
+                              _signinBrain.validateEmail(value!),
                         ),
                       ),
                       Padding(
@@ -89,15 +89,8 @@ class _SignInPageState extends State<SignInPage> {
                           decoration: kformFieldDecoration.copyWith(
                               hintText: "Password",
                               icon: const Icon(Icons.lock_outlined)),
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            if (value.length < 6) {
-                              return 'min. length should be 6 ';
-                            }
-                            return null;
-                          },
+                          validator: (String? value) =>
+                              _signinBrain.validatePassword(value!),
                         ),
                       ),
                       Align(
@@ -118,9 +111,13 @@ class _SignInPageState extends State<SignInPage> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                     style: kElevatedButtonStyle,
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        // Process data.
+                        final user = await _auth.signInWithEmailAndPassword(
+                            email: email, password: password);
+                        if (user != null) {
+                          Navigator.popAndPushNamed(context, HomeScreen.id);
+                        }
                       }
                     },
                     child: const Text(
@@ -181,7 +178,21 @@ class _SignInPageState extends State<SignInPage> {
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                     ),
-                    TextButton(onPressed: () {}, child: const Text("Sign Up"))
+                    TextButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const SizedBox(
+                                  child: AlertDialog(
+                                    title: Center(child: Text("sign up")),
+                                    content:
+                                        SizedBox(child: Text("signup page")),
+                                  ),
+                                );
+                              });
+                        },
+                        child: const Text("Sign Up"))
                   ],
                 ),
               )
