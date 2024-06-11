@@ -31,7 +31,7 @@ class MedicineApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SignInPage(),
+      home: const HomeScreen(),
       routes: {
         HomeScreen.id: (context) => const HomeScreen(),
         ProfileScreen.id: (context) => const ProfileScreen(),

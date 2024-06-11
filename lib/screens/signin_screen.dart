@@ -117,7 +117,9 @@ class _SignInPageState extends State<SignInPage> {
                               textAlign: TextAlign.justify,
                               decoration: kformFieldDecoration.copyWith(
                                   hintText: "Password",
-                                  icon: const Icon(Icons.lock_outlined)),
+                                  icon: const Icon(Icons.lock_outlined),
+                                  suffixIcon:const  Icon(Icons.remove_red_eye_outlined)
+                                  ),
                               validator: (String? value) =>
                                   _signinBrain.validatePassword(value!),
                             ),
