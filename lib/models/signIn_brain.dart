@@ -1,4 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 
 class SigninBrain {
   SigninBrain();
@@ -25,12 +25,5 @@ class SigninBrain {
     return null;
   }
 
-  Future<bool> checkNetworkConnectivity() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    // ignore: unrelated_type_equality_checks
-    if (connectivityResult == ConnectivityResult.none) {
-      return false;
-    }
-    return true;
-  }
+  
 }

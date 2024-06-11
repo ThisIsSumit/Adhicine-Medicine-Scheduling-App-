@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_app/constants.dart';
+import 'package:medicine_app/models/adhicine_brain.dart';
 import 'package:medicine_app/models/signin_brain.dart';
 import 'package:medicine_app/screens/home_screen.dart';
 
+
 SigninBrain _signinBrain = SigninBrain();
+AdhicineBrain _adhicineBrain = AdhicineBrain();
 
 class SignUpPopUp extends StatelessWidget {
   const SignUpPopUp({
@@ -72,17 +74,18 @@ class SignUpPopUp extends StatelessWidget {
               child: ElevatedButton(
                 style: kElevatedButtonStyle,
                 onPressed: () async {
-                  if (formKey.currentState!.validate()) {
-                    if (await _signinBrain.checkNetworkConnectivity()) {
+                  if (await _adhicineBrain.checkNetworkConnectivity()) {
+                    if (formKey.currentState!.validate()) {
                       final user = await _auth.createUserWithEmailAndPassword(
                           email: email, password: password);
                       // ignore: unnecessary_null_comparison
                       if (user != null) {
-                       
                         Navigator.pop(context);
                         Navigator.pushNamed(context, HomeScreen.id);
                       }
                     }
+                  } else {
+                    _adhicineBrain.noInternnetPop(context);
                   }
                 },
                 child: const Text(
