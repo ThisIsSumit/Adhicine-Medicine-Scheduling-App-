@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:medicine_app/models/dependency_injection.dart';
 import 'package:medicine_app/screens/forget_password.dart';
 import 'package:medicine_app/screens/home_screen.dart';
 import 'package:medicine_app/screens/profile_screen.dart';
 import 'package:medicine_app/screens/report_screen.dart';
 import 'package:medicine_app/screens/signin_screen.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +22,7 @@ void main() async {
         )
       : await Firebase.initializeApp();
   runApp(const MedicineApp());
+  DependencyInjection.init();
 }
 
 class MedicineApp extends StatelessWidget {

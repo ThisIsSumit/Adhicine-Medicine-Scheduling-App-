@@ -46,6 +46,7 @@ dependencies:
   flutter_animated_icons: ^1.0.1
   show_hide_password: ^0.0.2
   sign_in_button: ^3.0.0
+  get: ^4.6.6
 
 
 dev_dependencies:

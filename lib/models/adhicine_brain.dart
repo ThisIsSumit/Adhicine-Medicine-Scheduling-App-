@@ -4,8 +4,8 @@ import 'package:medicine_app/widgets/no_internet_connection.dart';
 
 class AdhicineBrain {
   Future<bool> checkNetworkConnectivity() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    // ignore: unrelated_type_equality_checks
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    
     if (connectivityResult == ConnectivityResult.none) {
       return false;
     }

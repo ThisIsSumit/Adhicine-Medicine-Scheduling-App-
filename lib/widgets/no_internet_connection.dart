@@ -15,17 +15,24 @@ class NoInternetConnection extends StatelessWidget {
           ),
         ),
         content: SizedBox(
-          child: Image.asset("assets/images/errorBot.png"),
+          child: Image.asset(
+            "assets/images/errorBot.png",
+            fit: BoxFit.fill,
+          ),
         ),
         actions: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Container(
+                child: Material(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30.0),
+                  ),
                   color: const Color.fromARGB(193, 105, 57, 251),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     icon: const Icon(Icons.bluetooth),
                     color: Colors.white,
                   ),
@@ -35,12 +42,20 @@ class NoInternetConnection extends StatelessWidget {
                 width: 2,
               ),
               Expanded(
-                child: Container(
+                child: Material(
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(30.0),
+                  ),
                   color: const Color.fromARGB(193, 105, 57, 251),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.wifi),
-                    color: Colors.white,
+                  child: TextButton(
+                    style: TextButton.styleFrom(),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.wifi,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
