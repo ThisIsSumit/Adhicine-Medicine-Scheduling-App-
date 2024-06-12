@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
-import 'package:medicine_app/models/custon_navigationbar.dart';
+import 'package:medicine_app/models/custom_bottom_navigataionbar.dart';
+import 'package:medicine_app/pages.dart/home_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,15 +28,26 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        elevation: 10,
-        shape: const StadiumBorder(),
-        onPressed: () {},
-        child: const Icon(Icons.add),
+    
+    return SafeArea(
+      child: Scaffold(
+        body: HomePage(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton.large(
+          elevation: 12,
+          shape: const StadiumBorder(),
+          onPressed: () {
+            //navigate to add medicine
+          },
+          backgroundColor: Colors.black,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+        bottomNavigationBar: const CustomBottomNavigationBar(),
       ),
-      bottomNavigationBar: const customNavigationBar(),
     );
   }
 }
+
