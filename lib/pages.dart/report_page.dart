@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_app/constants.dart';
 
-class ReportScreen extends StatefulWidget {
+class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
   static String id = "Report_screen";
 
-
-  @override
-  State<ReportScreen> createState() => _ReportScreenState();
-}
-
-class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Column(
+      children: [
+        Text("Report", style: kheadingStyle),
+        Card(
+          child: Column(
+            children: [
+              Text("Today's Report"),
+              Row(
+                children: [],
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
 }

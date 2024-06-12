@@ -12,9 +12,8 @@ final kElevatedButtonStyle = TextButton.styleFrom(
   backgroundColor: const Color.fromARGB(193, 105, 57, 251),
 );
 
-final kheadingStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 25);
-final ksubheadingStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
-final kcontentStyle = TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w500);                                
-final kcarHeadingStyle =  TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
-final klabelStyle= TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
+const kheadingStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 25);
+const ksubheadingStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
+const kcontentStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+const kcarHeadingStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
+const klabelStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
