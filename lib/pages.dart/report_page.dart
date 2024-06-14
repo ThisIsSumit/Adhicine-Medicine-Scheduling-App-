@@ -7,20 +7,45 @@ class ReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Text("Report", style: kheadingStyle),
-        Card(
-          child: Column(
-            children: [
-              Text("Today's Report"),
-              Row(
-                children: [],
-              )
-            ],
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Report", style: kheadingStyle),
           ),
-        )
-      ],
+          SizedBox(
+            height: 100,
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text("Today's Report"),
+                  Row(
+                    children: [],
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 100,
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text("DashBoard Card"),
+                  Row(
+                    children: [],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

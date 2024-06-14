@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_app/constants.dart';
 import 'package:medicine_app/widgets/message_card.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -16,6 +17,7 @@ class HomePage extends StatelessWidget {
       MessageCard(),
       MessageCard()
     ];
+   
 
     return SingleChildScrollView(
       child: Column(
@@ -61,15 +63,70 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          const Row(
-            children: [Text("date")],
+          EasyDateTimeLine(
+            initialDate: DateTime.now(),
+            onDateChange: (selectedDate) {
+              //`selectedDate` the new date selected.
+            },
+            activeColor: const Color(0xff37306B),
+            headerProps: const EasyHeaderProps(
+              dateFormatter: DateFormatter.fullDateDayAsStrMY(),
+            ),
+            dayProps: const EasyDayProps(
+              height: 50,
+              activeDayStyle: DayStyle(
+                borderRadius: 32.0,
+              ),
+              inactiveDayStyle: DayStyle(
+                borderRadius: 32.0,
+              ),
+            ),
+            timeLineProps: const EasyTimeLineProps(
+              hPadding: 16.0, // padding from left and right
+              separatorPadding: 16.0, // padding between days
+            ),
+            itemBuilder: (
+              BuildContext context,
+              DateTime date,
+              bool isSelected,
+              VoidCallback onTap,
+            ) {
+              return InkWell(
+                onTap: onTap,
+                borderRadius: BorderRadius.circular(8.0),
+                child: Container(
+                  padding: isSelected
+                      ? const EdgeInsets.symmetric(horizontal: 8.0)
+                      : null,
+                  decoration: BoxDecoration(
+                    color: isSelected ? const Color(0xff37306B) : null,
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  child: Expanded(
+                    child: Center(
+                      child: Text(
+                        isSelected
+                            ? "${EasyDateFormatter.fullDayName(date, "en_US")}, ${EasyDateFormatter.shortMonthName(date, "en_US")} ${date.day.toString()} "
+                            : EasyDateFormatter.shortDayName(date, "en_US"),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: isSelected
+                              ? Colors.white
+                              : const Color(0xff6D5D6E),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   "Night Timimg",
                   style: klabelStyle,
                 ),
@@ -84,7 +141,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   "AfterNoon Timimg",
                   style: klabelStyle,
                 ),
@@ -99,7 +156,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   "Night Timimg",
                   style: klabelStyle,
                 ),
